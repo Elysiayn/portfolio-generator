@@ -1,7 +1,10 @@
-const generatePage = (name, github) => {
+// const generatePage = (name, github) => {  codeCheck had us replace OG format
+
+module.exports = (name, github) => {
     return `
     <!DOCTYPE html> 
     <html lang="en"> 
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,4 +20,5 @@ const generatePage = (name, github) => {
     `;
 };
 
-module.exports = generatePage;
+//lesson said to place this at bottom 2.6
+//module.exports = generatePage;

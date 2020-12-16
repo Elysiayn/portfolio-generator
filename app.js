@@ -1,4 +1,6 @@
+const fs = require('fs');
 const inquirer = require('inquirer');
+const generatePage = require('./src/page-template');
 
 const promptUser = () => {
     return inquirer.prompt([{
@@ -18,8 +20,8 @@ const promptUser = () => {
             type: 'input',
             name: 'github',
             message: 'Enter your GitHub Username (Required)',
-            validate: nameInput => {
-                if (nameInput) {
+            validate: githubInput => {
+                if (githubInput) {
                     return true;
                 } else {
                     console.log('Please enter your GitHub Username!');
@@ -52,15 +54,15 @@ const promptUser = () => {
 
 //function for project question prompts
 const promptProject = portfolioData => {
-    // If there's no 'projects' array property, create one
-    if (!portfolioData.projects) {
-        portfolioData.projects = [];
-    }
     console.log(`
     =================
     Add a New Project
     =================
     `);
+    // If there's no 'projects' array property, create one
+    if (!portfolioData.projects) {
+        portfolioData.projects = [];
+    }
     return inquirer.prompt([{
                 type: 'input',
                 name: 'name',
@@ -78,8 +80,8 @@ const promptProject = portfolioData => {
                 type: 'input',
                 name: 'description',
                 message: 'Provide a description of the project (Required)',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: descriptionInput => {
+                    if (descriptionInput) {
                         return true;
                     } else {
                         console.log('Please enter your project description!');
@@ -97,8 +99,8 @@ const promptProject = portfolioData => {
                 type: 'input',
                 name: 'link',
                 message: 'Enter the GitHub link to your project. (Required)',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: linkInput => {
+                    if (linkInput) {
                         return true;
                     } else {
                         console.log('Please enter your GitHub link to your project!');
@@ -134,4 +136,10 @@ promptUser()
     .then(promptProject)
     .then(portfolioData => {
         console.log(portfolioData);
+        // will be uncommented in lesson 4
+        // const pageHTML = generatePage(portfolioData);
+        // fs.writeFile('./index.html', pageHTML, err => {
+        //   if (err) throw new Error(err);
+        //   console.log('Page created! Check out index.html in this directory to see it!');
+        // });
     });
